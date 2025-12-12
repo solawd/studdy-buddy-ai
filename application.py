@@ -22,9 +22,25 @@ def main():
         st.session_state.rerun_trigger = False
         
 
-    st.title("Study Buddy AI NEW NEW NEW NEW")
+    st.title("Study Buddy AI")
 
     st.sidebar.header("Quiz Settings")
+
+
+    # Model Selection
+    model = st.sidebar.selectbox(
+        "Model",
+        [
+            "llama-3.1-8b-instant",
+            "llama-3.3-70b-versatile",
+            "openai/gpt-oss-120b",
+            "openai/gpt-oss-120b",
+            "gpt-5",
+            "gpt-5-mini",
+            "gpt-5-nano"
+        ],
+        help="Select the model to use"
+    )
 
     question_type = st.sidebar.selectbox(
         "Select Question Type" ,
@@ -35,7 +51,7 @@ def main():
     topic = st.sidebar.text_input("Ennter Topic" , placeholder="Indian History, geography")
 
     difficulty = st.sidebar.selectbox(
-        "Dificulty Level",
+        "Difficulty Level",
         ["Easy" , "Medium" , "Hard"],
         index=1
     )
@@ -51,7 +67,7 @@ def main():
     if st.sidebar.button("Generate Quiz"):
         st.session_state.quiz_submitted = False
 
-        generator = QuestionGenerator()
+        generator = QuestionGenerator(model)
         succces = st.session_state.quiz_manager.generate_questions(
             generator,
             topic,question_type,difficulty,num_questions

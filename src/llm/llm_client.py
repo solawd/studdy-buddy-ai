@@ -24,5 +24,5 @@ class LLMModel:
         return ChatOpenAI(
             model=model,
             temperature=settings.TEMPERATURE,
-            api_key=settings.OPENAI_API_KEY
+            api_key=str(settings.OPEN_AI_API_KEY)
         )

@@ -6,6 +6,7 @@ load_dotenv()
 class Settings():
 
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+    OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
 
     MODEL_NAME = "llama-3.1-8b-instant"
     

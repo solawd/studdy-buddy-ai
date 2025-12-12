@@ -52,7 +52,7 @@ class QuizManager:
 
             if q['type']=='MCQ':
                 user_answer = st.radio(
-                    f"Select and answer for Question {i+1}",
+                    f"Select an answer for Question {i+1}",
                     q['options'],
                     key=f"mcq_{i}"
                 )

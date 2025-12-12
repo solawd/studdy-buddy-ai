@@ -21,9 +21,8 @@ class LLMModel:
         )
 
     def _get_openai_client(self, model='gpt-5-nano'):
-        key = os.getenv("OPEN_AI_API_KEY")
         return ChatOpenAI(
             model=model,
             temperature=settings.TEMPERATURE,
-            api_key=key
+            api_key=settings.OPENAI_API_KEY
         )

@@ -773,7 +773,7 @@ minikube tunnel
 * Open another SSH terminal and run port-forwarding:
 
 ```bash
-kubectl port-forward svc/my-service -n argocd --address 0.0.0.0 9090:80
+kubectl port-forward service/llmops-service -n argocd --address 0.0.0.0 9090:80
 ```
 
 ---

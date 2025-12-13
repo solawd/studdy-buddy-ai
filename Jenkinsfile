@@ -1,5 +1,10 @@
 pipeline {
     agent any
+	environment {
+        DOCKER_HUB_REPO = "solawd/solawd-test"
+        DOCKER_HUB_CREDENTIALS_ID = "gitops-dockerhub"
+        IMAGE_TAG = "v${BUILD_NUMBER}"
+    }
     stages {
         stage('Checkout Github') {
             steps {
@@ -9,12 +14,20 @@ pipeline {
         }        
         stage('Build Docker Image') {
             steps {
-                echo 'Building Docker image...'
+                script {
+                    echo 'Building Docker image...'
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
+                }
             }
         }
         stage('Push Image to DockerHub') {
             steps {
-                echo 'Pushing Docker image to DockerHub...'
+                script {
+                    echo 'Pushing Docker image to DockerHub...'
+                    docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
+                        dockerImage.push("${IMAGE_TAG}")
+                    }
+                }
             }
         }
         stage('Install Kubectl & ArgoCD CLI') {
